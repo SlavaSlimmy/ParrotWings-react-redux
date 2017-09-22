@@ -54,6 +54,7 @@ class AddTransactionForm extends Component {
               onSuggestionsFetchRequested={onSuggestionsFetchRequested}
               onSuggestionsClearRequested={onSuggestionsClearRequested}
               onChangeAutocompleteValueRequested={onChangeAutocompleteValueRequested}
+              disabled={formData.isLoading}
               />
 					</Grid>
 					<Grid item xs={12} sm={12} md={5}>
@@ -66,6 +67,7 @@ class AddTransactionForm extends Component {
               onChange={onChangeAmountValueRequested}
               margin="normal"
               fullWidth
+              disabled={formData.isLoading}
             />          
 					</Grid>					
 					<Grid item xs={12} sm={12} md={2} className={classes.btns}>

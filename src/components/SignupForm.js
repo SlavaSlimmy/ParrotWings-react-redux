@@ -47,20 +47,20 @@ const validate = values => {
 
 class SignupForm extends Component {
 	render() {
-		const { handleSubmit, submitting, classes, onClickLogin, auth } = this.props
+		const { handleSubmit, classes, onClickLogin, auth } = this.props
 		return (
 
 			<form className={classes.form} onSubmit={handleSubmit}>
         <div className="alert alert--danger" hidden={!auth.isError}>
           <span>Error!</span> {auth.statusText}
         </div>      
-				<Field name="username" type="text" component={renderTextField} label="Name" fullWidth required margin="normal" className={classes.textField} />
-        <Field name="email" type="text" component={renderTextField} label="Email" fullWidth required margin="normal" className={classes.textField} />
-				<Field name="password" type="password" component={renderTextField} label="Password" fullWidth required margin="normal" className={classes.textField}/>
-        <Field name="repassword" type="password" component={renderTextField} label="Re-type password" fullWidth required margin="normal" className={classes.textField}/>
+				<Field name="username" type="text" component={renderTextField} label="Name" fullWidth required margin="normal" className={classes.textField} disabled={auth.isAuthenticating} />
+        <Field name="email" type="text" component={renderTextField} label="Email" fullWidth required margin="normal" className={classes.textField} disabled={auth.isAuthenticating} />
+				<Field name="password" type="password" component={renderTextField} label="Password" fullWidth required margin="normal" className={classes.textField} disabled={auth.isAuthenticating}/>
+        <Field name="repassword" type="password" component={renderTextField} label="Re-type password" fullWidth required margin="normal" className={classes.textField} disabled={auth.isAuthenticating}/>
 
         <div className="login__btns">
-        	<Button type="submit" className={classes.button} raised color="primary" disabled={submitting}>Sign me up</Button>
+        	<Button type="submit" className={classes.button} raised color="primary" disabled={auth.isAuthenticating}>Sign me up</Button>
         </div>
         <div className="login__signup">
         	<Typography type="body1">Have account? <a href="#" onClick={onClickLogin}>Login here</a></Typography>
@@ -75,7 +75,6 @@ SignupForm.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onClickLogin: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired,
 }
 

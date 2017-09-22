@@ -39,7 +39,10 @@ const styles = theme => ({
   user: {
     color: 'white',
     fontSize: '14px',
-  },  
+  }, 
+  progess: {
+    color: 'white',
+  },    
   logoutButton: {
     marginRight: -12,
     marginLeft: 20,  	
@@ -71,7 +74,7 @@ class Header extends Component {
                 }
                 {userInfo.isLoading &&
                   <div> 
-                    <CircularProgress color="white" size="30" />
+                    <CircularProgress className={classes.progess} size={30} />
                   </div>                                    
                 }                
 		          </div>

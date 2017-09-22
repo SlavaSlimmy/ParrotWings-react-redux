@@ -41,18 +41,34 @@ const validate = values => {
 
 class LoginForm extends Component {
 	render() {
-		const { handleSubmit, submitting, classes, onClickSignup, auth } = this.props
+		const { handleSubmit, classes, onClickSignup, auth } = this.props
 		return (
 
 			<form className={classes.form} onSubmit={handleSubmit}>
         <div className="alert alert--danger" hidden={!auth.isError}>
           <span>Error!</span> {auth.statusText}
         </div>      
-				<Field name="email" type="text" component={renderTextField} label="Email" fullWidth required margin="normal" className={classes.textField} />
-				<Field name="password" type="password" component={renderTextField} label="Password" fullWidth required margin="normal" className={classes.textField}/>
+				<Field name="email" type="text" 
+          component={renderTextField} 
+          label="Email" 
+          fullWidth 
+          required 
+          margin="normal" 
+          className={classes.textField} 
+          disabled={auth.isAuthenticating} 
+        />
+				<Field name="password" type="password" 
+          component={renderTextField} 
+          label="Password" 
+          fullWidth 
+          required 
+          margin="normal" 
+          className={classes.textField}
+          disabled={auth.isAuthenticating} 
+        />
 
         <div className="login__btns">
-        	<Button type="submit" className={classes.button} raised color="primary" disabled={submitting}>Let me in</Button>
+        	<Button type="submit" className={classes.button} raised color="primary" disabled={auth.isAuthenticating}>Let me in</Button>
         </div>
         <div className="login__signup">
         	<Typography type="body1">No account yet? <a href="#" onClick={onClickSignup}>Create one</a></Typography>
@@ -67,7 +83,6 @@ LoginForm.propTypes = {
   classes: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   onClickSignup: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired,
   auth: PropTypes.object.isRequired,
 }
 

@@ -9,7 +9,7 @@ import parse from 'autosuggest-highlight/parse'
 import { withStyles } from 'material-ui/styles'
 
 function renderInput(inputProps) {
-  const { classes, home, value, ref, ...other } = inputProps;
+  const { classes, disabled, home, value, ref, ...other } = inputProps;
 
   return (
     <TextField
@@ -17,6 +17,7 @@ function renderInput(inputProps) {
       label="Search user"
       className={classes.textField}
       value={value}
+      disabled={disabled}
       inputRef={ref}
       InputProps={{
         classes: {
@@ -94,7 +95,7 @@ const styles = theme => ({
 class Autocomplete extends Component { 
 
   render() {
-    const { classes, autocomplete, onSuggestionsFetchRequested, onSuggestionsClearRequested, onChangeAutocompleteValueRequested } = this.props; 
+    const { classes, autocomplete, onSuggestionsFetchRequested, onSuggestionsClearRequested, onChangeAutocompleteValueRequested, disabled } = this.props; 
 
     return (
       <Autosuggest
@@ -115,6 +116,7 @@ class Autocomplete extends Component {
           classes,
           value: autocomplete.value,
           onChange: onChangeAutocompleteValueRequested,
+          disabled: disabled
         }}
       />
     );
@@ -127,6 +129,7 @@ Autocomplete.propTypes = {
   onSuggestionsFetchRequested: PropTypes.func.isRequired,
   onSuggestionsClearRequested: PropTypes.func.isRequired,
   onChangeAutocompleteValueRequested: PropTypes.func.isRequired,  
+  disabled: PropTypes.bool.isRequired,  
 }
 
 export default withStyles(styles)(Autocomplete)

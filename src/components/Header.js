@@ -10,6 +10,7 @@ import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
+import { CircularProgress } from 'material-ui/Progress';
 
 import ExitToApp from 'material-ui-icons/ExitToApp'
 
@@ -50,7 +51,7 @@ const styles = theme => ({
 class Header extends Component {
 
 	render() {
-		const { classes, onLogout, username, balance } = this.props
+		const { classes, onLogout, userInfo } = this.props
 		return (
 			<div className={classes.root}>
 		      <AppBar position="static" className={classes.appBar}>
@@ -60,10 +61,19 @@ class Header extends Component {
 		            Parrot Wings
 		          </Typography>
 		          <div className={classes.user}>
-			          <Hidden only={['xs', 'sm']}>
-			          	<span>{username}</span>
-			          </Hidden>
-			          	<span className="badge">{balance} PW</span>
+                {!userInfo.isLoading &&
+                  <div> 
+                    <Hidden only={['xs', 'sm']}>
+                      <span>{userInfo.userName}</span>
+                    </Hidden>
+                    <span className="badge">{userInfo.balance} PW</span>
+                  </div>
+                }
+                {userInfo.isLoading &&
+                  <div> 
+                    <CircularProgress color="white" size="30" />
+                  </div>                                    
+                }                
 		          </div>
 		          <IconButton className={classes.logoutButton} color="inherit" aria-label="Logout" onClick={onLogout}>
 		            <ExitToApp />
@@ -79,8 +89,7 @@ class Header extends Component {
 Header.propTypes = {
   classes: PropTypes.object.isRequired,
   onLogout: PropTypes.func.isRequired,
-  username: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired,
+  userInfo: PropTypes.object.isRequired,
 }
 
 export default compose(withStyles(styles), withWidth())(Header)

@@ -54,11 +54,11 @@ class Home extends Component {
 	}	
 
 	render() {
-		const { classes, username, balance, transactions } = this.props
+		const { classes, userInfo, transactions } = this.props
 		return (
 			<div className="home">
 
-				<Header onLogout={this.handleLogout} username={username} balance={balance} />
+				<Header onLogout={this.handleLogout} userInfo={userInfo} />
 			    <section className={classes.content}>
 			    	<div className="container">
 			    		<Paper elevation={4} className={classes.Paper}>
@@ -77,16 +77,14 @@ class Home extends Component {
 Home.propTypes = {
   dispatch: PropTypes.func.isRequired,
   token: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  balance: PropTypes.number.isRequired,
   classes: PropTypes.object.isRequired,
+  userInfo: PropTypes.object.isRequired,
 }
 
 function mapStateToProps(state) {
 	return {
 		token: state.auth.token,
-		username: state.userInfo.userName,
-		balance: state.userInfo.balance,
+		userInfo:state.userInfo,
 		transactions: state.transactions
 	}
 }
